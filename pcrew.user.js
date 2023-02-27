@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         DJMAX Crew Score Counter & exporter
+// @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      2.7
-// @description  Count the number of specific images on the DJMAX Crew Scores page and calculate a total score based on their values.
+// @version      2.8
+// @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
 // @grant        none
@@ -17,7 +17,7 @@
     if (emailField !== null) {
 
         // Apply the blur filter to the email field
-        emailField.style.filter = 'blur(3px)';
+        emailField.style.filter = 'blur(5px)';
 
     }
 
