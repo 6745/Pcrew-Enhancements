@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DJMAX Crew Score Counter & exporter
 // @namespace    http://tampermonkey/net/
-// @version      2.3
+// @version      2.6
 // @description  Count the number of specific images on the DJMAX Crew Scores page and calculate a total score based on their values.
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -70,6 +70,7 @@
 (function() {
   'use strict';
 
+
   // Select the table body element
   const tableBody = document.querySelector('tbody');
 
@@ -79,25 +80,55 @@
   // Loop through each row in the table
   tableBody.querySelectorAll('tr').forEach((row) => {
     // Get the DJMAX and song name cells
-    const artist = row.querySelector('td:first-child').textContent;
-    const song = row.querySelector('td:nth-child(2)').textContent;
+    const artist = row.querySelector('td:first-child').textContent.replace(/,/g, ' ');
+    const song = row.querySelector('td:nth-child(2)').textContent.replace(/,/g, ' ');
 
    // Get the score and max combo cells
+      const rankImages = {
+  "/img/rank/none.png":"",
+  "/img/rank/nm_1.png": "[Bronze]",
+  "/img/rank/nm_2.png": "[Silver]",
+  "/img/rank/nm_3.png": "[Gold]",
+  "/img/rank/nm_4.png": "[Max Combo]",
+  "/img/rank/hd_1.png": "[wBronze]",
+  "/img/rank/hd_2.png": "[wSilver]",
+  "/img/rank/hd_3.png": "[wGold]",
+  "/img/rank/hd_4.png": "[Max Combo]",
+  "/img/rank/mx_1.png": "[wBronze]",
+  "/img/rank/mx_2.png": "[Silver]",
+  "/img/rank/mx_3.png": "[Gold]",
+  "/img/rank/mx_4.png": "[Max Combo]",
+  "/img/rank/ex_1.png": "[Bronze]",
+  "/img/rank/ex_2.png": "[Silver]",
+  "/img/rank/ex_3.png": "[Gold]",
+  "/img/rank/ex_4.png": "[Max Combo]"
+};
+
+
       const scoreCell = row.querySelector('td:nth-child(3)');
       const scoreCell2 = row.querySelector('td:nth-child(4)');
       const scoreCell3 = row.querySelector('td:nth-child(5)');
       const scoreCell4 = row.querySelector('td:nth-child(6)');
-      const scoreImg = scoreCell.querySelector('img[title^="Score"]');
+      const nmImg = scoreCell.querySelector('img[title^="Score"]');
       const hdImg = row.querySelector('td:nth-child(4) img[title^="Score"]');
       const mxImg = row.querySelector('td:nth-child(5) img[title^="Score"]');
       const exImg = row.querySelector('td:nth-child(6) img[title^="Score"]');
-      const score = scoreImg ? `"${scoreImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}${scoreCell.querySelector('img.icon-combo') ? ' [Max Combo]' : ''}"` : '';
-      const hd = hdImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}${scoreCell2.querySelector('img.icon-combo') ? ' [Max Combo]' : ''}"` : '';
-      const mx = mxImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}${scoreCell3.querySelector('img.icon-combo') ? ' [Max Combo]' : ''}"` : '';
-      const ex = exImg ? `"${exImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}${scoreCell4.querySelector('img.icon-combo') ? ' [Max Combo]' : ''}"` : '';
+      const nm = nmImg ? `"${nmImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
+      const hd = hdImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
+      const mx = mxImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
+      const ex = exImg ? `"${exImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
+      const nmRankImg = scoreCell.querySelector('img');
+      const hdRankImg = scoreCell2.querySelector('img');
+      const mxRankImg = scoreCell3.querySelector('img');
+      const exRankImg = scoreCell4.querySelector('img');
+      const nmRank = nmRankImg ? rankImages[nmRankImg.getAttribute('src')] : '';
+      const hdRank = hdRankImg ? rankImages[hdRankImg.getAttribute('src')] : '';
+      const mxRank = mxRankImg ? rankImages[mxRankImg.getAttribute('src')] : '';
+      const exRank = exRankImg ? rankImages[exRankImg.getAttribute('src')] : '';
+
 
     // Create an array with the row data
-    const rowData = [artist, song, score, hd, mx, ex];
+    const rowData = [artist, song, nm + nmRank, hd, hdRank, mx, mxRank, ex, exRank];
 
     // Add the row to the rows array
     rows.push(rowData);
@@ -128,3 +159,4 @@
   const progressWrapper = document.querySelector('div.progress-wrapper.section');
   progressWrapper.appendChild(downloadButton);
 })();
+
