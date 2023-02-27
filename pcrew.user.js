@@ -80,28 +80,29 @@
   // Loop through each row in the table
   tableBody.querySelectorAll('tr').forEach((row) => {
     // Get the DJMAX and song name cells
-    const artist = row.querySelector('td:first-child').textContent.replace(/,/g, ' ');
-    const song = row.querySelector('td:nth-child(2)').textContent.replace(/,/g, ' ');
+      const artist = `"${row.querySelector('td:first-child').textContent}"`;
+      const song = `"${row.querySelector('td:nth-child(2)').textContent}"`;
+
 
    // Get the score and max combo cells
       const rankImages = {
   "/img/rank/none.png":"",
-  "/img/rank/nm_1.png": "[Bronze]",
-  "/img/rank/nm_2.png": "[Silver]",
-  "/img/rank/nm_3.png": "[Gold]",
-  "/img/rank/nm_4.png": "[Max Combo]",
-  "/img/rank/hd_1.png": "[Bronze]",
-  "/img/rank/hd_2.png": "[Silver]",
-  "/img/rank/hd_3.png": "[Gold]",
-  "/img/rank/hd_4.png": "[Max Combo]",
-  "/img/rank/mx_1.png": "[Bronze]",
-  "/img/rank/mx_2.png": "[Silver]",
-  "/img/rank/mx_3.png": "[Gold]",
-  "/img/rank/mx_4.png": "[Max Combo]",
-  "/img/rank/ex_1.png": "[Bronze]",
-  "/img/rank/ex_2.png": "[Silver]",
-  "/img/rank/ex_3.png": "[Gold]",
-  "/img/rank/ex_4.png": "[Max Combo]"
+  "/img/rank/nm_1.png": " [Bronze]",
+  "/img/rank/nm_2.png": " [Silver]",
+  "/img/rank/nm_3.png": " [Gold]",
+  "/img/rank/nm_4.png": " [Max Combo]",
+  "/img/rank/hd_1.png": " [Bronze]",
+  "/img/rank/hd_2.png": " [Silver]",
+  "/img/rank/hd_3.png": " [Gold]",
+  "/img/rank/hd_4.png": " [Max Combo]",
+  "/img/rank/mx_1.png": " [Bronze]",
+  "/img/rank/mx_2.png": " [Silver]",
+  "/img/rank/mx_3.png": " [Gold]",
+  "/img/rank/mx_4.png": " [Max Combo]",
+  "/img/rank/ex_1.png": " [Bronze]",
+  "/img/rank/ex_2.png": " [Silver]",
+  "/img/rank/ex_3.png": " [Gold]",
+  "/img/rank/ex_4.png": " [Max Combo]"
 };
 
 
@@ -113,10 +114,10 @@
       const hdImg = row.querySelector('td:nth-child(4) img[title^="Score"]');
       const mxImg = row.querySelector('td:nth-child(5) img[title^="Score"]');
       const exImg = row.querySelector('td:nth-child(6) img[title^="Score"]');
-      const nm = nmImg ? `"${nmImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
-      const hd = hdImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
-      const mx = mxImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
-      const ex = exImg ? `"${exImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1').replace(/,/g, '')}"` : '';
+      const nm = nmImg ? `"${nmImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
+      const hd = hdImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
+      const mx = mxImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
+      const ex = exImg ? `"${exImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
       const nmRankImg = scoreCell.querySelector('img');
       const hdRankImg = scoreCell2.querySelector('img');
       const mxRankImg = scoreCell3.querySelector('img');
