@@ -129,7 +129,7 @@
 
 
     // Create an array with the row data
-    const rowData = [artist, song, nm + nmRank, hd + hdRank, mx + mxRank + ex + exRank];
+    const rowData = [artist, song, nm + nmRank, hd + hdRank, mx + mxRank, ex + exRank];
 
     // Add the row to the rows array
     rows.push(rowData);
@@ -160,4 +160,3 @@
   const progressWrapper = document.querySelector('div.progress-wrapper.section');
   progressWrapper.appendChild(downloadButton);
 })();
-
