@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DJMAX Crew Score Counter & exporter
 // @namespace    http://tampermonkey/net/
-// @version      2.6
+// @version      2.7
 // @description  Count the number of specific images on the DJMAX Crew Scores page and calculate a total score based on their values.
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -90,11 +90,11 @@
   "/img/rank/nm_2.png": "[Silver]",
   "/img/rank/nm_3.png": "[Gold]",
   "/img/rank/nm_4.png": "[Max Combo]",
-  "/img/rank/hd_1.png": "[wBronze]",
-  "/img/rank/hd_2.png": "[wSilver]",
-  "/img/rank/hd_3.png": "[wGold]",
+  "/img/rank/hd_1.png": "[Bronze]",
+  "/img/rank/hd_2.png": "[Silver]",
+  "/img/rank/hd_3.png": "[Gold]",
   "/img/rank/hd_4.png": "[Max Combo]",
-  "/img/rank/mx_1.png": "[wBronze]",
+  "/img/rank/mx_1.png": "[Bronze]",
   "/img/rank/mx_2.png": "[Silver]",
   "/img/rank/mx_3.png": "[Gold]",
   "/img/rank/mx_4.png": "[Max Combo]",
@@ -128,7 +128,7 @@
 
 
     // Create an array with the row data
-    const rowData = [artist, song, nm + nmRank, hd, hdRank, mx, mxRank, ex, exRank];
+    const rowData = [artist, song, nm + nmRank, hd + hdRank, mx + mxRank + ex + exRank];
 
     // Add the row to the rows array
     rows.push(rowData);
