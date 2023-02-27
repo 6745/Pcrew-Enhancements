@@ -1,2 +1,2 @@
 # Pcrew-Enhancements
-tampermonkey stuff for pcrew
+Score Export, Live Leaderboard points, Email hider.
