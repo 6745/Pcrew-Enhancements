@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      3.0
+// @version      3.1
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -40,10 +40,10 @@
         "/img/rank/mx_2.png": {value: 6, type: "Silver"},
         "/img/rank/mx_3.png": {value: 12, type: "Gold"},
         "/img/rank/mx_4.png": {value: 16, type: "Max"},
-        "/img/rank/ex_1.png": {value: 4, type: "Bronze"},
-        "/img/rank/ex_2.png": {value: 6, type: "Silver"},
-        "/img/rank/ex_3.png": {value: 12, type: "Gold"},
-        "/img/rank/ex_4.png": {value: 16, type: "Max"},
+        "/img/rank/ex_1.png": {value: 0, type: "Bronze"},
+        "/img/rank/ex_2.png": {value: 0, type: "Silver"},
+        "/img/rank/ex_3.png": {value: 0, type: "Gold"},
+        "/img/rank/ex_4.png": {value: 0, type: "Max"},
     };
 
     let totalScore = 0;
