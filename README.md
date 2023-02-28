@@ -1,2 +1,2 @@
 # Pcrew-Enhancements
-Score Export, Live Leaderboard points, Email hider.
+Score Export, medal info, email hider
