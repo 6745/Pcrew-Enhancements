@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      3.1
+// @version      3.2
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -22,7 +22,6 @@
     }
 
 })();
-
 
 (function() {
     'use strict';
@@ -46,11 +45,11 @@
         "/img/rank/ex_4.png": {value: 0, type: "Max"},
     };
 
-    let totalScore = 0;
     let bronzeCount = 0;
     let silverCount = 0;
     let goldCount = 0;
     let maxCount = 0;
+
 
     // Find all images on the page and count the number of occurrences of each one
     const imageElements = document.querySelectorAll("img");
@@ -61,7 +60,6 @@
             const value = IMAGES[src].value;
             const type = IMAGES[src].type;
             imageCounts[src] = (imageCounts[src] || 0) + 1;
-            totalScore += value;
             if (type === "Bronze") {
                 bronzeCount += 1;
             } else if (type === "Silver") {
@@ -77,11 +75,11 @@
  // Append the total score and count of each type of rank to the specified div element
 const progressWrapper = document.querySelector("div.progress-wrapper.section");
 const totalScoreElement = document.createElement("span");
-totalScoreElement.textContent = `Leadboard score: ${totalScore}`;
 totalScoreElement.style.display = "block"; // Add this line to make it a block-level element
 progressWrapper.appendChild(totalScoreElement);
 const rankCountsElement = document.createElement("span");
-rankCountsElement.textContent = `  Bronzes: ${bronzeCount}, Silvers: ${silverCount}, Golds: ${goldCount}, Maxs: ${maxCount}   `;
+    totalScoreElement.style.display = "block";
+rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount}`;
 //rankCountsElement.style.display = "block"; // Add this line to make it a block-level element
 rankCountsElement.style.marginTop = "10px"; // Add this line to add a margin between the two elements
 progressWrapper.appendChild(rankCountsElement);
@@ -160,7 +158,9 @@ progressWrapper.appendChild(rankCountsElement);
 
   // Create a button to download the CSV file
   const downloadButton = document.createElement("button");
+
   downloadButton.textContent = "Export Scores";
+  downloadButton.style.display = "block";
   downloadButton.onclick = function() {
     // Create a download link for the CSV file
     const downloadLink = document.createElement("a");
