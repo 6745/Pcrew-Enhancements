@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      2.9
+// @version      3.0
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -28,25 +28,29 @@
     'use strict';
 
     const IMAGES = {
-        "/img/rank/nm_1.png": 1,
-        "/img/rank/nm_2.png": 2,
-        "/img/rank/nm_3.png": 3,
-        "/img/rank/nm_4.png": 4,
-        "/img/rank/hd_1.png": 2,
-        "/img/rank/hd_2.png": 4,
-        "/img/rank/hd_3.png": 6,
-        "/img/rank/hd_4.png": 8,
-        "/img/rank/mx_1.png": 4,
-        "/img/rank/mx_2.png": 6,
-        "/img/rank/mx_3.png": 12,
-        "/img/rank/mx_4.png": 16,
-        "/img/rank/ex_1.png": 4, //change me if not true
-        "/img/rank/ex_2.png": 6, //change me if not true
-        "/img/rank/ex_3.png": 12, //change me if not true
-        "/img/rank/ex_4.png": 16, //change me if not true
+        "/img/rank/nm_1.png": {value: 1, type: "Bronze"},
+        "/img/rank/nm_2.png": {value: 2, type: "Silver"},
+        "/img/rank/nm_3.png": {value: 3, type: "Gold"},
+        "/img/rank/nm_4.png": {value: 4, type: "Max"},
+        "/img/rank/hd_1.png": {value: 2, type: "Bronze"},
+        "/img/rank/hd_2.png": {value: 4, type: "Silver"},
+        "/img/rank/hd_3.png": {value: 6, type: "Gold"},
+        "/img/rank/hd_4.png": {value: 8, type: "Max"},
+        "/img/rank/mx_1.png": {value: 4, type: "Bronze"},
+        "/img/rank/mx_2.png": {value: 6, type: "Silver"},
+        "/img/rank/mx_3.png": {value: 12, type: "Gold"},
+        "/img/rank/mx_4.png": {value: 16, type: "Max"},
+        "/img/rank/ex_1.png": {value: 4, type: "Bronze"},
+        "/img/rank/ex_2.png": {value: 6, type: "Silver"},
+        "/img/rank/ex_3.png": {value: 12, type: "Gold"},
+        "/img/rank/ex_4.png": {value: 16, type: "Max"},
     };
 
     let totalScore = 0;
+    let bronzeCount = 0;
+    let silverCount = 0;
+    let goldCount = 0;
+    let maxCount = 0;
 
     // Find all images on the page and count the number of occurrences of each one
     const imageElements = document.querySelectorAll("img");
@@ -54,17 +58,33 @@
     imageElements.forEach((img) => {
         const src = img.getAttribute("src");
         if (src in IMAGES) {
-            const value = IMAGES[src];
+            const value = IMAGES[src].value;
+            const type = IMAGES[src].type;
             imageCounts[src] = (imageCounts[src] || 0) + 1;
             totalScore += value;
+            if (type === "Bronze") {
+                bronzeCount += 1;
+            } else if (type === "Silver") {
+                silverCount += 1;
+            } else if (type === "Gold") {
+                goldCount += 1;
+            } else if (type === "Max") {
+                maxCount += 1;
+            }
         }
     });
 
-    // Append the total score to the specified div element
-    const progressWrapper = document.querySelector("div.progress-wrapper.section");
-    const totalScoreElement = document.createElement("span");
-    totalScoreElement.textContent = `Leadboard score: ${totalScore}  `;
-    progressWrapper.appendChild(totalScoreElement);
+ // Append the total score and count of each type of rank to the specified div element
+const progressWrapper = document.querySelector("div.progress-wrapper.section");
+const totalScoreElement = document.createElement("span");
+totalScoreElement.textContent = `Leadboard score: ${totalScore}`;
+totalScoreElement.style.display = "block"; // Add this line to make it a block-level element
+progressWrapper.appendChild(totalScoreElement);
+const rankCountsElement = document.createElement("span");
+rankCountsElement.textContent = `  Bronzes: ${bronzeCount}, Silvers: ${silverCount}, Golds: ${goldCount}, Maxs: ${maxCount}   `;
+//rankCountsElement.style.display = "block"; // Add this line to make it a block-level element
+rankCountsElement.style.marginTop = "10px"; // Add this line to add a margin between the two elements
+progressWrapper.appendChild(rankCountsElement);
 })();
 
 (function() {
