@@ -1,2 +1,2 @@
 # Pcrew-Enhancements
-Score Export, medal info, email hider
+Score Export, Ranking Points Calcuation, medal info, email hider
