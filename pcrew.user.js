@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      3.5
+// @version      3.6
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -137,12 +137,14 @@ if (window.location.href.includes("pop")) {
     const progressWrapper = document.querySelector("div.progress-wrapper.section");
     const totalScoreElement = document.createElement("span");
     totalScoreElement.style.display = "block";
-    totalScoreElement.textContent = `Ranking Points: ${totalPoints}`;
+    totalScoreElement.textContent = `Ranking Points: ${totalPoints} 🛈 `;
+    totalScoreElement.setAttribute('title', 'Ranking Points in calcuated by NM, HD, MX difficulties from the base game only.  ');
     progressWrapper.appendChild(totalScoreElement);
 
     const rankCountsElement = document.createElement("span");
     rankCountsElement.style.display = "block";
-    rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount}`;
+    rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount} 🛈 `;
+    rankCountsElement.setAttribute('title', 'Removed songs count towards these.');
     progressWrapper.appendChild(rankCountsElement);
 })();
 
