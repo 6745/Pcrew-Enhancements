@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      3.6
+// @version      3.7
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -44,6 +44,7 @@
         "/img/rank/ex_2.png": {points: 0, type: "Silver",Difficulty:"EX"},
         "/img/rank/ex_3.png": {points: 0, type: "Gold",Difficulty:"EX"},
         "/img/rank/ex_4.png": {points: 0, type: "Max",Difficulty:"EX"},
+        "/img/rank/pp.png": {points:0, type: "PP"},
     };
 
     let excludedSongs;
@@ -100,6 +101,7 @@ if (window.location.href.includes("pop")) {
     let silverCount = 0;
     let goldCount = 0;
     let maxCount = 0;
+    let PPcount = 0;
 
     // Find all images on the page and count the number of occurrences of each one
     const imageElements = document.querySelectorAll("img");
@@ -125,6 +127,9 @@ if (window.location.href.includes("pop")) {
             goldCount += 1;
         } else if (type === "Max") {
             maxCount += 1;
+        } else if (type === "PP") {
+            PPcount += 1;
+            maxCount -=1;
         }
         totalPoints += points;
     }
@@ -143,7 +148,7 @@ if (window.location.href.includes("pop")) {
 
     const rankCountsElement = document.createElement("span");
     rankCountsElement.style.display = "block";
-    rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount} 🛈 `;
+    rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount}, Perfects: ${PPcount}  🛈 `;
     rankCountsElement.setAttribute('title', 'Update 1 and 2 do not count towards these.');
     progressWrapper.appendChild(rankCountsElement);
 })();
@@ -171,19 +176,21 @@ if (window.location.href.includes("pop")) {
   "/img/rank/nm_1.png": " [Bronze]",
   "/img/rank/nm_2.png": " [Silver]",
   "/img/rank/nm_3.png": " [Gold]",
-  "/img/rank/nm_4.png": " [Max Combo]",
+  "/img/rank/nm_4.png": "",
   "/img/rank/hd_1.png": " [Bronze]",
   "/img/rank/hd_2.png": " [Silver]",
   "/img/rank/hd_3.png": " [Gold]",
-  "/img/rank/hd_4.png": " [Max Combo]",
+  "/img/rank/hd_4.png": "",
   "/img/rank/mx_1.png": " [Bronze]",
   "/img/rank/mx_2.png": " [Silver]",
   "/img/rank/mx_3.png": " [Gold]",
-  "/img/rank/mx_4.png": " [Max Combo]",
+  "/img/rank/mx_4.png": "",
   "/img/rank/ex_1.png": " [Bronze]",
   "/img/rank/ex_2.png": " [Silver]",
   "/img/rank/ex_3.png": " [Gold]",
-  "/img/rank/ex_4.png": " [Max Combo]"
+  "/img/rank/ex_4.png": "",
+
+
 };
 
 
@@ -191,14 +198,30 @@ if (window.location.href.includes("pop")) {
       const scoreCell2 = row.querySelector('td:nth-child(4)');
       const scoreCell3 = row.querySelector('td:nth-child(5)');
       const scoreCell4 = row.querySelector('td:nth-child(6)');
-      const nmImg = scoreCell.querySelector('img[title^="Score"]');
+      const nmImg = row.querySelector('td:nth-child(3) img[title^="Score"]');
       const hdImg = row.querySelector('td:nth-child(4) img[title^="Score"]');
       const mxImg = row.querySelector('td:nth-child(5) img[title^="Score"]');
       const exImg = row.querySelector('td:nth-child(6) img[title^="Score"]');
+      const nmPPImg = row.querySelector('td:nth-child(3) img[title^="Unbelievable!"]');
+      const hdPPImg = row.querySelector('td:nth-child(4) img[title^="Unbelievable!"]');
+      const mxPPImg = row.querySelector('td:nth-child(5) img[title^="Unbelievable!"]');
+      const exPPImg = row.querySelector('td:nth-child(6) img[title^="Unbelievable!"]');
+      const nmMCImg = row.querySelector('td:nth-child(3) img[title^="Max Combo!"]');
+      const hdMCImg = row.querySelector('td:nth-child(4) img[title^="Max Combo!"]');
+      const mxMCImg = row.querySelector('td:nth-child(5) img[title^="Max Combo!"]');
+      const exMCImg = row.querySelector('td:nth-child(6) img[title^="Max Combo!"]');
       const nm = nmImg ? `"${nmImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
       const hd = hdImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
       const mx = mxImg ? `"${hdImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
       const ex = exImg ? `"${exImg.getAttribute('title').replace(/Score: ([\d,]+).*/, '$1')}"` : '';
+      const nmMC = nmMCImg ? `${nmMCImg.getAttribute('title').replace(/Max Combo!/, ' [Max Combo]')}` : '';
+      const hdMC = hdMCImg ? `${hdMCImg.getAttribute('title').replace(/Max Combo!/, ' [Max Combo]')}` : '';
+      const mxMC = mxMCImg ? `${mxMCImg.getAttribute('title').replace(/Max Combo!/, ' [Max Combo]')}` : '';
+      const exMC = exMCImg ? `${exMCImg.getAttribute('title').replace(/Max Combo!/, ' [Max Combo]')}` : '';
+      const nmpp = nmPPImg ? `${nmPPImg.getAttribute('title').replace(/Unbelievable!/, ' [PERFECT]')}` : '';
+      const hdpp = hdPPImg ? `${hdPPImg.getAttribute('title').replace(/Unbelievable!/, ' [PERFECT]')}` : '';
+      const mxpp = mxPPImg ? `${hdPPImg.getAttribute('title').replace(/Unbelievable!/, ' [PERFECT]')}` : '';
+      const expp = exPPImg ? `${exPPImg.getAttribute('title').replace(/Unbelievable!/, ' [PERFECT]')}` : '';
       const nmRankImg = scoreCell.querySelector('img');
       const hdRankImg = scoreCell2.querySelector('img');
       const mxRankImg = scoreCell3.querySelector('img');
@@ -209,8 +232,11 @@ if (window.location.href.includes("pop")) {
       const exRank = exRankImg ? rankImages[exRankImg.getAttribute('src')] : '';
 
 
+
+
     // Create an array with the row data
-    const rowData = [artist, song, nm + nmRank, hd + hdRank, mx + mxRank, ex + exRank];
+    const rowData = [artist, song, nm + nmRank + nmpp + nmMC, hd + hdRank + hdpp + hdMC, mx + mxRank + mxpp + mxMC, ex + exRank + expp];
+
 
     // Add the row to the rows array
     rows.push(rowData);
