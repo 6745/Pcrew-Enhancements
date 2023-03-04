@@ -84,11 +84,11 @@ if (window.location.href.includes("pop")) {
         {song: "PARA-Q", difficulties: ["NM"]},
         {song: "JBG", difficulties: ["NM"]},
         {song: "Hard To Start", difficulties: ["NM"]},
-        {song: "Mutu", difficulties: ["MM"]},
-        {song: "SuperSonic 2011", difficulties: ["MN"]},
+        {song: "Mutu", difficulties: ["NM"]},
+        {song: "SuperSonic 2011", difficulties: ["NM"]},
         {song: "Memory of Wind", difficulties: ["NM"]},
         {song: "The Clear Blue Sky (Japanese Ver.)", difficulties: ["NM"]},
-        {song: "In My Heart (Japanese Ver.)", difficulties: ["NM"]},
+       {song: "In My Heart (Japanese Ver.)", difficulties: ["NM"]},
 
     ];
 } else {
