@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pcrew-Enhancer
 // @namespace    http://tampermonkey/net/
-// @version      3.7
+// @version      3.8
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
@@ -95,6 +95,16 @@ if (window.location.href.includes("pop")) {
 } else {
     excludedSongs = [];
 }
+let removedSongs = [
+        {song: "Motion", difficulties: ["NM", "HD","MX","EX"]},
+        {song: "PARA-Q", difficulties: ["NM", "HD","MX","EX"]},
+        {song: "JBG", difficulties: ["NM", "HD","MX","EX"]},
+        {song: "Hard To Start", difficulties: ["NM", "HD","MX","EX"]},
+        {song: "Mutu", difficulties: ["NM", "HD","MX","EX"]},
+        {song: "Memory of Wind", difficulties: ["NM", "HD","MX","EX"]},
+
+
+    ];
 
     let totalPoints = 0;
     let bronzeCount = 0;
@@ -110,14 +120,14 @@ if (window.location.href.includes("pop")) {
         const src = img.getAttribute("src");
         const tableRow = img.closest("tr");
         if (tableRow) {
+
             const songName = tableRow.querySelector("td:first-child").textContent.trim(); // get song name from table row
             if (src in IMAGES) {
-    const songName = tableRow.querySelector("td:first-child").textContent.trim(); // get song name from table row
-    const difficulty = IMAGES[src].Difficulty; // get difficulty from image object
-    const excludedDifficulties = excludedSongs.find((excludedSong) => excludedSong.song === songName)?.difficulties || []; // find excluded difficulties for current song
-    if (!excludedDifficulties.includes(difficulty)) { // check if image is valid and difficulty is not excluded
-        const points = IMAGES[src].points;
+        const songName = tableRow.querySelector("td:first-child").textContent.trim();
         const type = IMAGES[src].type;
+                const difficulty = IMAGES[src].Difficulty;
+        const removed = removedSongs.find((removedSong) => removedSong.song === songName)?.difficulties || [];;
+        if (!removed.includes(difficulty)) {
         imageCounts[src] = (imageCounts[src] || 0) + 1;
         if (type === "Bronze") {
             bronzeCount += 1;
@@ -131,6 +141,13 @@ if (window.location.href.includes("pop")) {
             PPcount += 1;
             maxCount -=1;
         }
+        }
+ //   const songName = tableRow.querySelector("td:first-child").textContent.trim(); // get song name from table row
+   // const difficulty = IMAGES[src].Difficulty; // get difficulty from image object
+    const excludedDifficulties = excludedSongs.find((excludedSong) => excludedSong.song === songName)?.difficulties || []; // find excluded difficulties for current song
+    if (!excludedDifficulties.includes(difficulty)) { // check if image is valid and difficulty is not excluded
+        const points = IMAGES[src].points;
+
         totalPoints += points;
     }
 }
@@ -143,13 +160,13 @@ if (window.location.href.includes("pop")) {
     const totalScoreElement = document.createElement("span");
     totalScoreElement.style.display = "block";
     totalScoreElement.textContent = `Ranking Points: ${totalPoints} 🛈 `;
-    totalScoreElement.setAttribute('title', 'Ranking Points in calcuated by NM, HD, MX difficulties from the base game only.  ');
+    totalScoreElement.setAttribute('title', 'Ranking Points in calcuated by NM, HD, MX difficulties from the base game.');
     progressWrapper.appendChild(totalScoreElement);
 
     const rankCountsElement = document.createElement("span");
     rankCountsElement.style.display = "block";
     rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount}, Perfects: ${PPcount}  🛈 `;
-    rankCountsElement.setAttribute('title', 'Update 1 and 2 do not count towards these.');
+    rankCountsElement.setAttribute('title', 'Hard To Start, JBG, Memory of Wind,Motion,Mutu,PARA-Q are excluded');
     progressWrapper.appendChild(rankCountsElement);
 })();
 
