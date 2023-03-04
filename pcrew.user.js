@@ -144,7 +144,7 @@ if (window.location.href.includes("pop")) {
     const rankCountsElement = document.createElement("span");
     rankCountsElement.style.display = "block";
     rankCountsElement.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Max Combos: ${maxCount} 🛈 `;
-    rankCountsElement.setAttribute('title', 'Removed songs count towards these.');
+    rankCountsElement.setAttribute('title', 'Update 1 and 2 do not count towards these.');
     progressWrapper.appendChild(rankCountsElement);
 })();
 
