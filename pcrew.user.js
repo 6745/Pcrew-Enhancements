@@ -5,6 +5,7 @@
 // @description  Enhancements for Pcrew
 // @author       ChatGPT & 6745
 // @match        https://djmaxcrew.com/*
+// @match        https://programmedcrew.net/*
 // @grant        none
 // ==/UserScript==
 (function() {
