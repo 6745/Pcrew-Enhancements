@@ -3,7 +3,7 @@ Score Export, Ranking Points Calcuation, medal info, email hider
 
 
 
-#EXPORT
+# EXPORT
 export simply just exports the table from html so you're getting the left overs, if a chart doesnt have a difficulty its just left blank
 star mixing has 3 extra empty fields, where as pop mixing gets a flurry of random empty feilds 
 
