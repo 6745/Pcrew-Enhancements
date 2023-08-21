@@ -11,7 +11,11 @@ star mixing has 3 extra empty fields, where as pop mixing gets a flurry of rando
 
 "A life with You","makou","253,463" [Silver],,,
 
-# EXAMPLE OF POP
+SONG > ARTIST > NM [CLEAR STATUS] > NULL > NULL > NULL
+
+STAR mixing only has 1 chart per song.
+
+# EXAMPLE OF POP MIX
 
 "ACCESS","Sphazer","266,103" [Silver],"264,337" [Silver],"300,000" [PERFECT],"297,456" [Max Combo]
 
