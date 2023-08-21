@@ -15,4 +15,4 @@ star mixing has 3 extra empty fields, where as pop mixing gets a flurry of rando
 
 "ACCESS","Sphazer","266,103" [Silver],"264,337" [Silver],"300,000" [PERFECT],"297,456" [Max Combo]
 
-SONG > ARTIST > EZ [CLEAR STATUS] > NM [CLEAR STATUS]> HD [CLEAR STATUS]> EX [CLEAR STATUS]
+SONG > ARTIST > NM [CLEAR STATUS] > HD [CLEAR STATUS]> MX [CLEAR STATUS]> EX [CLEAR STATUS]
